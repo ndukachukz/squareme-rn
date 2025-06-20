@@ -2,6 +2,14 @@
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "moduleResolution": "bundler",
-    "strict": true
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@constants/*": ["src/constants/*"],
+      "@navigation/*": ["src/navigation/*"],
+      "@assets/*": ["src/assets/*"]
+    }
   }
 }

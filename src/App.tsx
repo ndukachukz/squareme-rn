@@ -7,6 +7,7 @@ import { useColorScheme } from "react-native";
 import { Navigation } from "./navigation";
 import { useFonts } from "expo-font";
 import { FONT_LOADING_MAP } from "./constants/fonts";
+import { SplashScreen as AnimatedSplashScreen } from "./components/screens/splash-screen";
 
 Asset.loadAsync([...NavigationAssets]);
 
@@ -14,6 +15,7 @@ SplashScreen.preventAutoHideAsync();
 
 export function App() {
   const colorScheme = useColorScheme();
+  const [showSplash, setShowSplash] = React.useState(true);
 
   const theme = colorScheme === "dark" ? DarkTheme : DefaultTheme;
 
@@ -25,8 +27,17 @@ export function App() {
     }
   }, [loaded, error]);
 
+  const handleSplashFinish = React.useCallback(() => {
+    setShowSplash(false);
+  }, []);
+
   if (!loaded && !error) {
     return null;
+  }
+
+  // Show animated splash screen first
+  if (showSplash) {
+    return <AnimatedSplashScreen onAnimationFinish={handleSplashFinish} />;
   }
 
   return (
