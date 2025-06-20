@@ -2,6 +2,19 @@
 
 This is a minimal starter template for React Native apps using Expo and React Navigation.
 
+## Why Expo?
+
+This project uses Expo because it's the recommended approach for modern React Native development. Expo provides a superior developer experience with:
+
+- Streamlined setup and configuration
+- Built-in tooling and services
+- Better cross-platform compatibility
+- Simplified deployment process
+- Native support via development builds for full React Native capabilities
+- Active community support and regular updates
+
+## Features
+
 It includes the following:
 
 - Example [Native Stack](https://reactnavigation.org/docs/native-stack-navigator) with a nested [Bottom Tab](https://reactnavigation.org/docs/bottom-tab-navigator)
