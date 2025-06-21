@@ -9,7 +9,9 @@
       "@components/*": ["src/components/*"],
       "@constants/*": ["src/constants/*"],
       "@navigation/*": ["src/navigation/*"],
-      "@assets/*": ["src/assets/*"]
+      "@assets/*": ["src/assets/*"],
+      "@utils/*": ["src/utils/*"],
+      "@config/*": ["src/config/*"]
     }
   }
 }
