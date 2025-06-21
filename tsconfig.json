@@ -11,7 +11,8 @@
       "@navigation/*": ["src/navigation/*"],
       "@assets/*": ["src/assets/*"],
       "@utils/*": ["src/utils/*"],
-      "@config/*": ["src/config/*"]
+      "@config/*": ["src/config/*"],
+      "@hooks/*": ["src/hooks/*"]
     }
   }
 }
