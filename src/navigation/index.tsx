@@ -1,64 +1,22 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { HeaderButton, Text } from "@react-navigation/elements";
 import {
   createStaticNavigation,
   StaticParamList,
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Home } from "./screens/home";
-import { Profile } from "./screens/profile";
-import { Settings } from "./screens/settings";
-import { Updates } from "./screens/updates";
 import { NotFound } from "./screens/not-found";
-
-const HomeTabs = createBottomTabNavigator({
-  screens: {
-    Home: {
-      screen: Home,
-      options: {
-        title: "Feed",
-      },
-    },
-    Updates: {
-      screen: Updates,
-      options: {
-        title: "Updates",
-      },
-    },
-  },
-});
+import AuthStack from "./auth-stack";
+import MainStack from "./main-stack";
 
 const RootStack = createNativeStackNavigator({
+  screenOptions: {
+    headerShown: false,
+  },
   screens: {
-    HomeTabs: {
-      screen: HomeTabs,
-      options: {
-        title: "Home",
-        headerShown: false,
-      },
+    AuthStack: {
+      screen: AuthStack,
     },
-    Profile: {
-      screen: Profile,
-      linking: {
-        path: ":user(@[a-zA-Z0-9-_]+)",
-        parse: {
-          user: (value) => value.replace(/^@/, ""),
-        },
-        stringify: {
-          user: (value) => `@${value}`,
-        },
-      },
-    },
-    Settings: {
-      screen: Settings,
-      options: ({ navigation }) => ({
-        presentation: "modal",
-        headerRight: () => (
-          <HeaderButton onPress={navigation.goBack}>
-            <Text>Close</Text>
-          </HeaderButton>
-        ),
-      }),
+    MainStack: {
+      screen: MainStack,
     },
     NotFound: {
       screen: NotFound,
