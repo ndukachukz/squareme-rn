@@ -28,6 +28,7 @@ const darkColors = {
   inputContainer: "#1E1E2D",
   inputPlaceholder: "#7B7B8B",
   inputBorderActive: "#FF9C01",
+  inputFieldBackground: "#F3F4F7",
 
   // border:
   borderSecondary: "#232533",
@@ -65,6 +66,7 @@ const lightColors = {
   inputContainer: "#f8fafc",
   inputPlaceholder: "#9ca3af",
   inputBorderActive: "#FF9C01",
+  inputFieldBackground: "#F3F4F7",
 
   // border:
   borderSecondary: "#232533",

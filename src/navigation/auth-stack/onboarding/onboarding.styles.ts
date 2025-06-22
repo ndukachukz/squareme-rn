@@ -1,8 +1,10 @@
 import { horizontalScale, moderateScale, verticalScale } from "@/utils/metrics";
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 
 export const TITLE_TICKER_HEIGHT = verticalScale(70);
-export const DESCRIPTION_TICKER_HEIGHT = verticalScale(19);
+export const DESCRIPTION_TICKER_HEIGHT = verticalScale(
+  Platform.OS === "android" ? 19 : 18
+);
 
 export default StyleSheet.create({
   container: {

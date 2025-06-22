@@ -18,6 +18,7 @@ import styles, {
   TITLE_TICKER_HEIGHT,
   DESCRIPTION_TICKER_HEIGHT,
 } from "./onboarding.styles";
+import { useNavigation } from "@react-navigation/native";
 
 const onboardingViews = [
   {
@@ -26,7 +27,7 @@ const onboardingViews = [
     image: onboarding1,
   },
   {
-    title: "A super secure way to pay your bills",
+    title: "A super secure way to pay your \nbills",
     description: "Pay your bills with the cheapest rates in town.",
     image: onboarding2,
   },
@@ -109,6 +110,7 @@ const Ticker = ({
 };
 
 const Onboarding = () => {
+  const navigation = useNavigation();
   const { colors } = useTheme();
   const { bottom } = useSafeAreaInsets();
 
@@ -258,8 +260,19 @@ const Onboarding = () => {
         />
 
         <View style={styles.cta_wrapper}>
-          <Button title="Create an account" />
-          <Button title="I already have an account" variant="outline" />
+          <Button
+            title="Create an account"
+            onPress={() =>
+              navigation.navigate("AuthStack", { screen: "Register" })
+            }
+          />
+          <Button
+            title="I already have an account"
+            variant="outline"
+            onPress={() =>
+              navigation.navigate("AuthStack", { screen: "Login" })
+            }
+          />
         </View>
       </View>
     </View>

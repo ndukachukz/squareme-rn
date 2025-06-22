@@ -3,6 +3,7 @@ import { Text as RNText } from "react-native";
 import { TextProps } from "./text.types";
 import styles, { getFontFamily } from "./text.styles";
 import { moderateScale } from "@/utils/metrics";
+import { useTheme } from "@/hooks/useTheme";
 
 /**
  * A typesafe Text component with built-in font family and weight support.
@@ -38,9 +39,11 @@ export const Text: React.FC<TextProps> = ({
   children,
   ...props
 }) => {
+  const { colors } = useTheme();
   const computedStyle = {
     fontFamily: getFontFamily(fontFamily, fontWeight, fontStyle),
     fontSize: moderateScale(fontSize),
+    color: colors.gray500,
   };
 
   return (

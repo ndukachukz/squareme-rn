@@ -9,4 +9,21 @@ const verticalScale = (size: number) => (height / guidelineBaseHeight) * size;
 const moderateScale = (size: number, factor = 0.5) =>
   size + (horizontalScale(size) - size) * factor;
 
+// Convert percentage line-height to pixels
+export const convertLineHeightToPixels = (
+  percentage: number,
+  fontSize: number
+) => {
+  return (percentage / 100) * fontSize;
+};
+
+// Convert percentage string (e.g., "145%") to pixels
+export const convertLineHeightStringToPixels = (
+  percentageString: string,
+  fontSize: number
+) => {
+  const percentage = parseFloat(percentageString.replace("%", ""));
+  return (percentage / 100) * fontSize;
+};
+
 export { horizontalScale, verticalScale, moderateScale };
