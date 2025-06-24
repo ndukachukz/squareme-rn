@@ -1,8 +1,12 @@
 import React from "react";
-import { Text as RNText } from "react-native";
+import { Text as RNText, TextStyle } from "react-native";
 import { TextProps } from "./text.types";
 import styles, { getFontFamily } from "./text.styles";
-import { moderateScale } from "@/utils/metrics";
+import {
+  convertLineHeightStringToPixels,
+  convertLineHeightToPixels,
+  moderateScale,
+} from "@/utils/metrics";
 import { useTheme } from "@/hooks/useTheme";
 
 /**
@@ -37,13 +41,15 @@ export const Text: React.FC<TextProps> = ({
   fontSize = 16,
   style,
   children,
+  lineHeight,
   ...props
 }) => {
   const { colors } = useTheme();
-  const computedStyle = {
+  const computedStyle: TextStyle = {
     fontFamily: getFontFamily(fontFamily, fontWeight, fontStyle),
     fontSize: moderateScale(fontSize),
     color: colors.gray500,
+    lineHeight,
   };
 
   return (

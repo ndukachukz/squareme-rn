@@ -10,8 +10,7 @@ import { moderateScale, verticalScale, horizontalScale } from "@/utils/metrics";
 const Button: React.FC<ButtonProps> = ({
   title,
   variant = "primary",
-  type = "solid",
-  touchEffect = false,
+  touchEffect = true,
   disabled = false,
   onPress,
   style,
@@ -113,9 +112,7 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <Pressable disabled={disabled} onPress={onPress}>
-      {({ pressed }) => (
-        <View style={{ opacity: pressed ? 0.8 : 1 }}>{renderButton()}</View>
-      )}
+      {renderButton()}
     </Pressable>
   );
 };

@@ -8,6 +8,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({
   onAnimationFinish,
   minDuration = 3000,
 }) => {
+  // const { colors } = useTheme();
   const animationRef = useRef<LottieView>(null);
   const [animationCompleted, setAnimationCompleted] = useState(false);
   const [minTimeElapsed, setMinTimeElapsed] = useState(false);
@@ -37,8 +38,8 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({
       <StatusBar barStyle="light-content" backgroundColor="#12054A" />
       <LottieView
         ref={animationRef}
-        source={require("@assets/lottie/squareme-splash-V2.json")}
-        style={styles.animation}
+        source={require("@assets/lottie/Squareme-splash.json")}
+        style={[styles.animation]}
         autoPlay
         loop={false}
         onAnimationFinish={handleAnimationFinish}

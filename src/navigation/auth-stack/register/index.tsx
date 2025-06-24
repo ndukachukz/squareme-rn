@@ -1,7 +1,14 @@
-import { Image, SafeAreaView, View } from "react-native";
+import {
+  Image,
+  SafeAreaView,
+  View,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from "react-native";
 import React from "react";
 import Text from "@components/ui/text";
 import InputField from "@components/ui/input-field";
+import KeyboardAwareView from "@components/ui/keyboard-aware-view";
 import styles from "./register.styles";
 import { useTheme } from "@/hooks/useTheme";
 import logo from "@assets/imgs/logo.png";
@@ -17,10 +24,16 @@ import { RegisterFormData, registerValidationSchema } from "./register.types";
 import nigerianFlag from "@assets/imgs/country-flag.png";
 import Button from "@/components/ui/button";
 import { useNavigation } from "@react-navigation/native";
+import { formatPhoneNumber } from "@/utils";
 
 const Register = () => {
   const navigation = useNavigation();
   const { colors } = useTheme();
+
+  const handlePhoneChange = (text: string) => {
+    const formatted = formatPhoneNumber(text);
+    formik.setFieldValue("phone", formatted);
+  };
 
   const formik = useFormik<RegisterFormData>({
     initialValues: {
@@ -29,10 +42,12 @@ const Register = () => {
     },
     validationSchema: registerValidationSchema,
     onSubmit(data) {
+      // Clean phone number for submission (remove spaces but keep +234)
+      const cleanPhone = data.phone.replace(/\s/g, "");
       navigation.navigate("AuthStack", {
         screen: "VerifyPhone",
         params: {
-          phone: data.phone,
+          phone: cleanPhone,
         },
       });
     },
@@ -40,7 +55,13 @@ const Register = () => {
 
   return (
     <SafeAreaView style={[{ flex: 1, backgroundColor: colors.background }]}>
-      <View style={[styles.container]}>
+      <KeyboardAwareView
+        contentContainerStyle={[styles.container]}
+        extraHeight={20}
+        enableAutomaticScroll={true}
+        keyboardShouldPersistTaps="handled"
+        resetScrollToCoords={{ x: 0, y: 0 }}
+      >
         <View style={styles.header}>
           <Image source={logo} style={styles.logo} resizeMode="contain" />
           <HelpCircle width={horizontalScale(24)} height={verticalScale(24)} />
@@ -66,7 +87,7 @@ const Register = () => {
           <View style={styles.formSection}>
             <InputField
               label="Phone Number"
-              placeholder="080 0000 000"
+              placeholder="+234 080 000 0000"
               leftComponent={
                 <Image
                   source={nigerianFlag}
@@ -78,7 +99,7 @@ const Register = () => {
                 />
               }
               value={formik.values.phone}
-              onChangeText={formik.handleChange("phone")}
+              onChangeText={handlePhoneChange}
               onBlur={formik.handleBlur("phone")}
               error={formik.errors.phone ?? undefined}
               keyboardType="phone-pad"
@@ -125,7 +146,7 @@ const Register = () => {
             v2.5.501
           </Text>
         </View>
-      </View>
+      </KeyboardAwareView>
     </SafeAreaView>
   );
 };

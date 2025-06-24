@@ -1,3 +1,4 @@
+import { horizontalScale, verticalScale } from "@/utils/metrics";
 import { Dimensions, StyleSheet } from "react-native";
 
 const { width, height } = Dimensions.get("window");
@@ -5,12 +6,12 @@ const { width, height } = Dimensions.get("window");
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#12054A", // Dark purple background matching the animation
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "#120542",
   },
   animation: {
-    width: width * 0.9,
-    height: height * 0.7,
+    width: width * 2.3,
+    height: height * 2,
   },
 });

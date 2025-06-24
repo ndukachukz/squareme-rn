@@ -1,6 +1,7 @@
 const commonColors = {
   white: "#FFFFFF",
   black: "#000000",
+  magenta: "#9F56D4",
 } as const;
 
 const darkColors = {

@@ -5,6 +5,7 @@ import Onboarding from "./onboarding";
 import ForgotPassword from "./forgot-password";
 import VerifyPhone from "./verify-phone";
 import SetupPin from "./setup-pin";
+import VerificationSuccess from "./verification-success";
 
 export default createNativeStackNavigator({
   screenOptions: { headerShown: false },
@@ -14,6 +15,7 @@ export default createNativeStackNavigator({
     Register,
     ForgotPassword,
     VerifyPhone,
+    VerificationSuccess,
     SetupPin,
   },
 });

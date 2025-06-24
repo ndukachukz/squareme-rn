@@ -3,9 +3,25 @@ import * as Yup from "yup";
 export const registerValidationSchema = Yup.object({
   phone: Yup.string()
     .required("Phone number is required")
-    .matches(/^[\+]?[1-9][\d]{0,15}$/, "Please enter a valid phone number")
-    .min(10, "Phone number must be at least 10 digits")
-    .max(16, "Phone number must not exceed 16 digits"),
+    .test(
+      "phone-validation",
+      "Please enter a valid phone number",
+      function (value) {
+        if (!value) return false;
+
+        // Remove spaces and check if it matches international phone format
+        const cleanedPhone = value.replace(/\s/g, "");
+
+        // International phone number regex: starts with + followed by country code (1-4 digits) and phone number (4-15 digits)
+        const internationalPhoneRegex = /^\+[1-9]\d{0,3}\d{4,15}$/;
+
+        return (
+          internationalPhoneRegex.test(cleanedPhone) &&
+          cleanedPhone.length >= 8 &&
+          cleanedPhone.length <= 20
+        );
+      }
+    ),
   referralCode: Yup.string()
     .optional()
     .matches(

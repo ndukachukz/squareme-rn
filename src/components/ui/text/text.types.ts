@@ -24,4 +24,5 @@ export interface TextProps extends RNTextProps {
   fontWeight?: FontWeight;
   fontStyle?: FontStyle;
   fontSize?: number;
+  lineHeight?: number;
 }

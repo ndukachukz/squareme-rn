@@ -14,7 +14,7 @@ export const convertLineHeightToPixels = (
   percentage: number,
   fontSize: number
 ) => {
-  return (percentage / 100) * fontSize;
+  return (percentage / 100) * moderateScale(fontSize);
 };
 
 // Convert percentage string (e.g., "145%") to pixels
@@ -23,7 +23,7 @@ export const convertLineHeightStringToPixels = (
   fontSize: number
 ) => {
   const percentage = parseFloat(percentageString.replace("%", ""));
-  return (percentage / 100) * fontSize;
+  return (percentage / 100) * moderateScale(fontSize);
 };
 
 export { horizontalScale, verticalScale, moderateScale };
