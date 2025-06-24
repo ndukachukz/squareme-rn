@@ -6,6 +6,7 @@ import ForgotPassword from "./forgot-password";
 import VerifyPhone from "./verify-phone";
 import SetupPin from "./setup-pin";
 import VerificationSuccess from "./verification-success";
+import ConfirmPin from "./confirm-pin";
 
 export default createNativeStackNavigator({
   screenOptions: { headerShown: false },
@@ -17,5 +18,6 @@ export default createNativeStackNavigator({
     VerifyPhone,
     VerificationSuccess,
     SetupPin,
+    ConfirmPin,
   },
 });

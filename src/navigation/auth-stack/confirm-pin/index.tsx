@@ -8,10 +8,10 @@ import OTPInput from "@/components/ui/otp-input";
 import { Icon, TouchableRipple } from "react-native-paper";
 import arrow_left from "@assets/svgs/arrow-left.svg";
 import { convertLineHeightToPixels } from "@/utils/metrics";
-import styles from "./setup-pin.styles";
-import { SetupPinProps } from "./setup-pin.types";
+import styles from "./confirm-pin.styles";
+import { ConfirmPinProps } from "./confirm-pin.types";
 
-const SetupPin: React.FC<SetupPinProps> = () => {
+const ConfirmPin: React.FC<ConfirmPinProps> = () => {
   const navigation = useNavigation();
   const { colors } = useTheme();
   const [pin, setPin] = useState("");
@@ -21,9 +21,9 @@ const SetupPin: React.FC<SetupPinProps> = () => {
   };
 
   const handlePinComplete = (completedPin: string) => {
-    navigation.navigate("AuthStack", {
-      screen: "ConfirmPin",
-    });
+    console.log("PIN confirmed:", completedPin);
+    // Handle PIN confirmation here - validate against previously set PIN
+    // Navigate to next screen or complete PIN setup process
   };
 
   return (
@@ -40,7 +40,7 @@ const SetupPin: React.FC<SetupPinProps> = () => {
               <Icon source={arrow_left} size={24} />
             </TouchableRipple>
           }
-          title="Set your Security PIN"
+          title="Confirm your Security PIN"
         />
 
         <View style={styles.content}>
@@ -55,7 +55,7 @@ const SetupPin: React.FC<SetupPinProps> = () => {
               },
             ]}
           >
-            Set a six (6) digit pin that you would use for all transactions
+            Input your six (6) digit PIN again
           </Text>
 
           <View style={styles.otpContainer}>
@@ -75,4 +75,4 @@ const SetupPin: React.FC<SetupPinProps> = () => {
   );
 };
 
-export default SetupPin;
+export default ConfirmPin;
