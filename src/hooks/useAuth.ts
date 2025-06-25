@@ -1,24 +1,22 @@
-import { useSelector, useDispatch } from "react-redux";
-import { RootState, AppDispatch } from "../store";
-import {
-  loginStart,
-  loginSuccess,
-  loginFailure,
-  logout,
-  setUser,
-  clearAuth,
-  User,
-} from "../store/slices/authSlice";
+import { useAuthStore, User } from "../store";
 
 export const useAuth = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const { user, isAuthenticated, isLoading, token } = useSelector(
-    (state: RootState) => state.auth
-  );
+  const {
+    user,
+    isAuthenticated,
+    isLoading,
+    token,
+    loginStart,
+    loginSuccess,
+    loginFailure,
+    logout,
+    setUser,
+    clearAuth,
+  } = useAuthStore();
 
   const login = async (email: string, password: string) => {
     try {
-      dispatch(loginStart());
+      loginStart();
 
       // Simulate API call delay
       await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -34,19 +32,14 @@ export const useAuth = () => {
 
         const mockToken = "demo-jwt-token-" + Date.now();
 
-        dispatch(
-          loginSuccess({
-            user: mockUser,
-            token: mockToken,
-          })
-        );
+        loginSuccess(mockUser, mockToken);
 
         return { success: true };
       } else {
         throw new Error("Invalid credentials");
       }
     } catch (error) {
-      dispatch(loginFailure());
+      loginFailure();
       return {
         success: false,
         error: error instanceof Error ? error.message : "Login failed",
@@ -55,15 +48,15 @@ export const useAuth = () => {
   };
 
   const signOut = () => {
-    dispatch(logout());
+    logout();
   };
 
   const updateUser = (userData: User) => {
-    dispatch(setUser(userData));
+    setUser(userData);
   };
 
   const clearAuthData = () => {
-    dispatch(clearAuth());
+    clearAuth();
   };
 
   return {

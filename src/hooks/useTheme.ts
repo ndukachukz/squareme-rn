@@ -1,8 +1,8 @@
-import { useAppSelector } from "@/store/hooks";
-import { themes } from "@/constants/theme";
+import { useThemeStore } from "../store";
+import { themes } from "../constants/theme";
 
 export const useTheme = () => {
-  const currentTheme = useAppSelector((state) => state.theme.theme);
+  const { theme: currentTheme, setTheme, toggleTheme } = useThemeStore();
 
   const colors = currentTheme === "dark" ? themes.dark : themes.light;
 
@@ -11,5 +11,7 @@ export const useTheme = () => {
     colors,
     isDark: currentTheme === "dark",
     isLight: currentTheme === "light",
+    setTheme,
+    toggleTheme,
   };
 };

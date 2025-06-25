@@ -1,5 +1,4 @@
-import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
-import type { RootState, AppDispatch } from "./index";
-
-export const useAppDispatch = () => useDispatch<AppDispatch>();
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+// Zustand stores can be used directly, no special hooks needed
+// Re-export stores for convenience
+export { useThemeStore } from "./themeStore";
+export { useAuthStore } from "./authStore";

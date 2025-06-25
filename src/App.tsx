@@ -4,13 +4,11 @@ import { Asset } from "expo-asset";
 import * as SplashScreen from "expo-splash-screen";
 import * as React from "react";
 import { useColorScheme } from "react-native";
-import { Provider } from "react-redux";
 import { Navigation } from "./navigation";
 import { useFonts } from "expo-font";
 import { FONT_LOADING_MAP } from "./constants/fonts";
 import { SplashScreen as AnimatedSplashScreen } from "./components/screens/splash-screen";
 import { PaperProvider } from "react-native-paper";
-import { store } from "./store";
 
 Asset.loadAsync([...NavigationAssets]);
 
@@ -44,17 +42,15 @@ export function App() {
   }
 
   return (
-    <Provider store={store}>
-      <PaperProvider>
-        <Navigation
-          theme={theme}
-          linking={{
-            enabled: "auto",
-            prefixes: ["squareme://"],
-          }}
-          onReady={onLayoutRootView}
-        />
-      </PaperProvider>
-    </Provider>
+    <PaperProvider>
+      <Navigation
+        theme={theme}
+        linking={{
+          enabled: "auto",
+          prefixes: ["squareme://"],
+        }}
+        onReady={onLayoutRootView}
+      />
+    </PaperProvider>
   );
 }
