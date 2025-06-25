@@ -1,6 +1,6 @@
 import { View, SafeAreaView, Image, Pressable } from "react-native";
 import React, { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { StackActions, useNavigation } from "@react-navigation/native";
 import { useTheme } from "@/hooks/useTheme";
 import Text from "@/components/ui/text";
 import Button from "@/components/ui/button";
@@ -36,8 +36,11 @@ const Login = () => {
   };
 
   const handleLogin = () => {
-    // Handle login button press
-    console.log("Login button pressed");
+    navigation.dispatch(
+      StackActions.replace("MainStack", {
+        screen: "HomeTabs",
+      })
+    );
   };
 
   const handleLogout = () => {

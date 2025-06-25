@@ -1,19 +1,73 @@
-import { Home } from "@/navigation/screens/home";
-import { Updates } from "@/navigation/screens/updates";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import TabBar from "./components/tab-bar";
+import {
+  Home2,
+  Moneys,
+  MoreSquare,
+  Profile as ProfileIcon,
+} from "iconsax-react-nativejs";
+import Payments from "../screens/payments";
+import Profile from "../screens/profile";
+import More from "../screens/more";
+import Home from "../screens/home";
 
 export default createBottomTabNavigator({
+  tabBar: (props) => <TabBar {...props} />,
   screens: {
     Home: {
       screen: Home,
       options: {
-        title: "Feed",
+        title: "Home",
+        tabBarIcon: (props) => (
+          <Home2
+            size={props.size}
+            color={props.color}
+            variant={props.focused ? "Bold" : "Linear"}
+            opacity={props.focused ? 0.4 : undefined}
+          />
+        ),
       },
     },
-    Updates: {
-      screen: Updates,
+    Payments: {
+      screen: Payments,
       options: {
-        title: "Updates",
+        title: "Payments",
+        tabBarIcon: (props) => (
+          <Moneys
+            size={props.size}
+            color={props.color}
+            variant={props.focused ? "Bold" : "Linear"}
+            opacity={props.focused ? 0.4 : undefined}
+          />
+        ),
+      },
+    },
+    More: {
+      screen: More,
+      options: {
+        title: "More",
+        tabBarIcon: (props) => (
+          <MoreSquare
+            size={props.size}
+            color={props.color}
+            variant={props.focused ? "Bold" : "Linear"}
+            opacity={props.focused ? 0.4 : undefined}
+          />
+        ),
+      },
+    },
+    Profile: {
+      screen: Profile,
+      options: {
+        title: "Profile",
+        tabBarIcon: (props) => (
+          <ProfileIcon
+            size={props.size}
+            color={props.color}
+            variant={props.focused ? "Bold" : "Linear"}
+            opacity={props.focused ? 0.4 : undefined}
+          />
+        ),
       },
     },
   },

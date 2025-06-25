@@ -6,7 +6,7 @@ import {
   waitFor,
 } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import Register from "../register";
+import Register from "../screens/register";
 
 // Mock dependencies
 jest.mock("@/hooks/useTheme", () => ({

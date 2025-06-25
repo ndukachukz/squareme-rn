@@ -1,7 +1,7 @@
 import React from "react";
 import { render, fireEvent, screen } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import SetupPinSuccess from "../setup-pin-success";
+import SetupPinSuccess from "../screens/setup-pin-success";
 
 // Mock dependencies
 jest.mock("@/hooks/useTheme", () => ({

@@ -6,7 +6,7 @@ import {
   waitFor,
 } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import VerifyPhone from "../verify-phone";
+import VerifyPhone from "../screens/verify-phone";
 
 // Mock dependencies
 jest.mock("@/hooks/useTheme", () => ({
