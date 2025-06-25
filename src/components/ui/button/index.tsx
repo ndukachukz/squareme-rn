@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { View, Pressable, TouchableOpacity, ViewStyle } from "react-native";
 
 import { useTheme } from "@/hooks/useTheme";
@@ -36,12 +36,12 @@ const Button: React.FC<ButtonProps> = ({
       case "primary":
         return {
           ...baseStyle,
-          backgroundColor: colors.primary500,
+          backgroundColor: disabled ? colors.disabled : colors.primary500,
         };
       case "secondary":
         return {
           ...baseStyle,
-          backgroundColor: colors.inputContainer,
+          backgroundColor: disabled ? colors.disabled : colors.inputContainer,
           borderWidth: 1,
           borderColor: colors.label,
         };
@@ -71,13 +71,11 @@ const Button: React.FC<ButtonProps> = ({
       case "outline":
         return colors.gray500;
       case "ghost":
-        return colors.primaryText;
+        return colors.gray500;
       default:
         return colors.buttonText;
     }
   };
-
-  const buttonStyles = { ...getButtonStyles(), ...style };
 
   const renderContent = () => (
     <Text
@@ -94,9 +92,9 @@ const Button: React.FC<ButtonProps> = ({
     </Text>
   );
 
-  const renderButton = () => {
-    return <View style={buttonStyles}>{renderContent()}</View>;
-  };
+  const renderButton = useCallback(() => {
+    return <View style={[getButtonStyles(), style]}>{renderContent()}</View>;
+  }, []);
 
   if (touchEffect) {
     return (

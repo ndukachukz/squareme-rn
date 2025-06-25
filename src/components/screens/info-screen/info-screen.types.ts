@@ -1,13 +1,20 @@
 import { ButtonProps } from "@/components/ui/button/button.types";
 import { TextProps } from "@/components/ui/text";
-import { ImageProps } from "react-native";
+import { ImageProps, PressableProps } from "react-native";
+
+export interface InfoScreenButton extends ButtonProps {}
 
 export interface InfoScreenProps {
-  infoImage: ImageProps;
+  infoImage?: ImageProps;
   title: string;
   titleProps?: Omit<TextProps, "children">;
   description: string;
   descriptionProps?: Omit<TextProps, "children">;
-  buttonText: string;
+
+  // Legacy single button support (backward compatibility)
+  buttonText?: string;
   buttonProps?: Omit<ButtonProps, "title">;
+
+  // New multiple buttons support
+  buttons?: InfoScreenButton[];
 }

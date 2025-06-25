@@ -21,9 +21,9 @@ const ConfirmPin: React.FC<ConfirmPinProps> = () => {
   };
 
   const handlePinComplete = (completedPin: string) => {
-    console.log("PIN confirmed:", completedPin);
-    // Handle PIN confirmation here - validate against previously set PIN
-    // Navigate to next screen or complete PIN setup process
+    navigation.navigate("AuthStack", {
+      screen: "SetupBVN",
+    });
   };
 
   return (

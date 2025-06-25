@@ -13,6 +13,8 @@ const darkColors = {
   gray400: "",
   secondary300: "",
   tertiary400: "",
+  tertiary500: "",
+  disabled: "#DBDCDF",
 
   // Background colors
   background: "#161622",
@@ -51,6 +53,9 @@ const lightColors = {
   gray400: "#4C525E",
   secondary300: "#55D9FC",
   tertiary400: "#AF72DB",
+  tertiary500: "#9F56D4",
+
+  disabled: "#DBDCDF",
 
   // Background colors
   background: "#ffffff",

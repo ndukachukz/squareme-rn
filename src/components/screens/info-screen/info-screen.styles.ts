@@ -16,4 +16,7 @@ export default StyleSheet.create({
   title: {
     marginBottom: verticalScale(6),
   },
+  buttons_container: {
+    rowGap: verticalScale(8),
+  },
 });
