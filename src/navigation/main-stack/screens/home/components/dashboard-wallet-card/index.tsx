@@ -11,6 +11,7 @@ import {
   moderateScale,
   verticalScale,
 } from "@/utils/metrics";
+import { handleCopy } from "@/utils";
 import Text from "@/components/ui/text";
 
 const DashboardWalletCard = () => {
@@ -22,6 +23,14 @@ const DashboardWalletCard = () => {
     setIsWalletBalanceVisible(!isWalletBalanceVisible);
   };
 
+  const handleCopySquaremeTag = async () => {
+    const success = await handleCopy("@davidoloye22");
+    if (success) {
+      // You could add a toast notification here if needed
+      console.log("Squareme tag copied to clipboard");
+    }
+  };
+
   return (
     <ImageBackground
       source={bgPattern}
@@ -31,24 +40,12 @@ const DashboardWalletCard = () => {
       ]}
       //   resizeMode="cover"
     >
-      <View
-        style={{
-          paddingVertical: verticalScale(10),
-          paddingHorizontal: horizontalScale(24),
-          rowGap: verticalScale(12),
-        }}
-      >
+      <View style={styles.mainContent}>
         <Pressable
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            alignSelf: "flex-end",
-            paddingHorizontal: horizontalScale(12),
-            paddingVertical: verticalScale(6),
-            backgroundColor: "#000942",
-            borderRadius: moderateScale(16),
-            columnGap: horizontalScale(10),
-          }}
+          style={[
+            styles.transactionHistoryButton,
+            { backgroundColor: colors.darkBlue },
+          ]}
         >
           <Text
             fontSize={12}
@@ -60,15 +57,8 @@ const DashboardWalletCard = () => {
           <ArrowRight2 color={colors.white} size={moderateScale(12)} />
         </Pressable>
 
-        <View style={{ alignSelf: "center" }}>
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              alignSelf: "center",
-              columnGap: horizontalScale(4),
-            }}
-          >
+        <View style={styles.walletBalanceContainer}>
+          <View style={styles.walletBalanceHeader}>
             <Text
               fontSize={12}
               lineHeight={convertLineHeightToPixels(150, 12)}
@@ -101,20 +91,9 @@ const DashboardWalletCard = () => {
         </View>
       </View>
       <View
-        style={{
-          backgroundColor: "#000942",
-          paddingVertical: verticalScale(9),
-        }}
+        style={[styles.bottomSection, { backgroundColor: colors.darkBlue }]}
       >
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-
-            alignSelf: "center",
-            columnGap: horizontalScale(7),
-          }}
-        >
+        <View style={styles.squaremTagContainer}>
           <Text
             fontSize={13}
             lineHeight={convertLineHeightToPixels(150, 13)}
@@ -122,9 +101,9 @@ const DashboardWalletCard = () => {
           >
             Squareme tag: @davidoloye22
           </Text>
-          <Pressable>
+          <Pressable onPress={handleCopySquaremeTag}>
             <Copy
-              color={"#9F56D4"}
+              color={colors.magenta}
               strokeWidth={1.5}
               size={moderateScale(16)}
             />

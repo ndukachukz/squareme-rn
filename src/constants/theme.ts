@@ -3,6 +3,9 @@ export const commonColors = {
   black: "#000000",
   magenta: "#9F56D4",
   error500: "#F04438",
+  tabBarBg: "#F9F9F9F0",
+  // Dashboard wallet card colors
+  darkBlue: "#000942",
 } as const;
 
 const darkColors = {

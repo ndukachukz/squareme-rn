@@ -5,6 +5,7 @@ import Text from "@/components/ui/text";
 import ScreenWrapper from "@/components/ui/screen-wrapper";
 import DashboardHeader from "./components/dashboard-header";
 import DashboardWalletCard from "./components/dashboard-wallet-card";
+import DashboardQuickActions from "./components/dashboard-quick-actions";
 
 const Home = () => {
   return (
@@ -17,6 +18,8 @@ const Home = () => {
 
         <DashboardWalletCard />
       </LinearGradient>
+
+      <DashboardQuickActions />
     </ScreenWrapper>
   );
 };

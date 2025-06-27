@@ -1,3 +1,5 @@
+import { Clipboard } from "react-native";
+
 export const formatPhoneNumber = (text: string) => {
   // Remove all non-digit characters except +
   const cleaned = text.replace(/[^\d+]/g, "");
@@ -44,4 +46,14 @@ export const formatPhoneNumber = (text: string) => {
   }
 
   return formatted;
+};
+
+export const handleCopy = async (text: string): Promise<boolean> => {
+  try {
+    await Clipboard.setString(text);
+    return true;
+  } catch (error) {
+    console.error("Failed to copy text to clipboard:", error);
+    return false;
+  }
 };
