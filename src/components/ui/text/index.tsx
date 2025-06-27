@@ -42,13 +42,14 @@ export const Text: React.FC<TextProps> = ({
   style,
   children,
   lineHeight,
+  color,
   ...props
 }) => {
   const { colors } = useTheme();
   const computedStyle: TextStyle = {
     fontFamily: getFontFamily(fontFamily, fontWeight, fontStyle),
     fontSize: moderateScale(fontSize),
-    color: colors.gray500,
+    color: color ?? colors.gray500,
     lineHeight,
   };
 
