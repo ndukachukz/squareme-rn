@@ -15,7 +15,7 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
   const { buildHref } = useLinkBuilder();
 
   return (
-    <View style={{ flexDirection: "row" }}>
+    <View style={{ flexDirection: "row", backgroundColor: colors.background }}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
 
@@ -49,6 +49,7 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
 
         return (
           <PlatformPressable
+            key={route.name}
             href={buildHref(route.name, route.params)}
             accessibilityState={isFocused ? { selected: true } : {}}
             accessibilityLabel={options.tabBarAccessibilityLabel}

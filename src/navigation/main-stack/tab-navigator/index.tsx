@@ -1,17 +1,18 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import TabBar from "./components/tab-bar";
 import {
   Home2,
   Moneys,
   MoreSquare,
   Profile as ProfileIcon,
 } from "iconsax-react-nativejs";
+import TabBar from "./components/tab-bar";
 import Payments from "../screens/payments";
 import Profile from "../screens/profile";
 import More from "../screens/more";
 import Home from "../screens/home";
 
 export default createBottomTabNavigator({
+  screenOptions: { headerShown: false },
   tabBar: (props) => <TabBar {...props} />,
   screens: {
     Home: {

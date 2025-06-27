@@ -1,7 +1,8 @@
-const commonColors = {
+export const commonColors = {
   white: "#FFFFFF",
   black: "#000000",
   magenta: "#9F56D4",
+  error500: "#F04438",
 } as const;
 
 const darkColors = {
@@ -12,6 +13,7 @@ const darkColors = {
   gray500: "",
   gray400: "",
   secondary300: "",
+  secondary500: "",
   tertiary400: "",
   tertiary500: "",
   disabled: "#DBDCDF",
@@ -52,6 +54,7 @@ const lightColors = {
   gray500: "#120542",
   gray400: "#4C525E",
   secondary300: "#55D9FC",
+  secondary500: "#00C6FB",
   tertiary400: "#AF72DB",
   tertiary500: "#9F56D4",
 
