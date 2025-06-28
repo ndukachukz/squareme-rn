@@ -39,6 +39,12 @@
         "projectId": "e9a6e92f-b89e-45fe-b0ff-c571f6d7ffb2"
       }
     },
-    "owner": "ndukachukz"
+    "owner": "ndukachukz",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/e9a6e92f-b89e-45fe-b0ff-c571f6d7ffb2"
+    }
   }
 }

@@ -6,12 +6,14 @@ import Text from "@/components/ui/text";
 import ChevronDown from "@assets/svgs/chevron-down.svg";
 import { Moneys } from "iconsax-react-nativejs";
 import { useTheme } from "@/hooks/useTheme";
+import { useAmountVisibilityStore } from "@/store";
 import { formatDate, formatAmount, getStatus } from "@/utils";
 import { styles } from "./dashboard-transactions.styles";
 import { mockTransactions } from "./dashboard-transactions.data";
 
 const DashboardTransactions = () => {
   const { colors } = useTheme();
+  const { isAmountVisible } = useAmountVisibilityStore();
   const [shouldShowMore, setShouldShowMore] = useState(false);
 
   const toggleSeeMore = () => setShouldShowMore((seeMore) => !seeMore);
@@ -63,7 +65,7 @@ const DashboardTransactions = () => {
                 fontSize={15}
                 lineHeight={convertLineHeightToPixels(150, 15)}
               >
-                {formatAmount(transaction.amount)}
+                {isAmountVisible ? formatAmount(transaction.amount) : "****"}
               </Text>
               <Text
                 fontSize={13}

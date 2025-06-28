@@ -1,8 +1,9 @@
 import { ImageBackground, Pressable, View } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 
 import styles from "./dasboard-wallet-card.styles";
 import { useTheme } from "@/hooks/useTheme";
+import { useAmountVisibilityStore } from "@/store";
 import bgPattern from "@assets/imgs/dashboard-wallet-bg-pattern.png";
 import { ArrowRight2, Copy, Eye } from "iconsax-react-nativejs";
 import {
@@ -16,12 +17,8 @@ import Text from "@/components/ui/text";
 
 const DashboardWalletCard = () => {
   const { colors } = useTheme();
-
-  const [isWalletBalanceVisible, setIsWalletBalanceVisible] = useState(false);
-
-  const handleToggleWalletBalance = () => {
-    setIsWalletBalanceVisible(!isWalletBalanceVisible);
-  };
+  const { isAmountVisible, toggleAmountVisibility } =
+    useAmountVisibilityStore();
 
   const handleCopySquaremeTag = async () => {
     const success = await handleCopy("@davidoloye22");
@@ -66,7 +63,7 @@ const DashboardWalletCard = () => {
               Wallet Balance
             </Text>
 
-            <Pressable onPress={handleToggleWalletBalance}>
+            <Pressable onPress={toggleAmountVisibility}>
               <Eye size={moderateScale(12)} color={colors.white} />
             </Pressable>
           </View>
@@ -84,7 +81,7 @@ const DashboardWalletCard = () => {
               lineHeight={convertLineHeightToPixels(140, 24)}
               style={{ color: colors.white }}
             >
-              {isWalletBalanceVisible ? "100,000" : "********"}
+              {isAmountVisible ? "100,000" : "********"}
             </Text>
           </Text>
         </View>

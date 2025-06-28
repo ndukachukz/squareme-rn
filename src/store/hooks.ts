@@ -2,3 +2,4 @@
 // Re-export stores for convenience
 export { useThemeStore } from "./themeStore";
 export { useAuthStore } from "./authStore";
+export { useAmountVisibilityStore } from "./amountVisibilityStore";
