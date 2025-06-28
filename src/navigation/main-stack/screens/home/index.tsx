@@ -11,7 +11,7 @@ import DashboardSuggestedActions from "./components/dashboard-suggested-actions"
 const Home = () => {
   return (
     <ScreenWrapper
-      insets="top"
+      insets={["top"]}
       contentContainerStyle={styles.container}
       showsVerticalScrollIndicator={false}
     >

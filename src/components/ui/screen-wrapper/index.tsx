@@ -8,6 +8,8 @@ import { ScreenWrapperProps } from "./screen-wrapper.types";
 
 const ScreenWrapper = ({
   insets,
+  insetVertical,
+  insetHorizontal,
   scrollable = true,
   ...props
 }: ScreenWrapperProps) => {
@@ -37,10 +39,18 @@ const ScreenWrapper = ({
         styles.container,
         {
           backgroundColor: colors.background,
-          paddingTop: verticalScale(insets === "top" ? top : 0),
-          paddingBottom: verticalScale(insets === "bottom" ? bottom : 0),
-          paddingLeft: horizontalScale(insets === "left" ? left : 0),
-          paddingRight: horizontalScale(insets === "right" ? right : 0),
+          paddingTop: verticalScale(
+            insets?.includes("top") || insetVertical ? top : 0
+          ),
+          paddingBottom: verticalScale(
+            insets?.includes("bottom") || insetVertical ? bottom : 0
+          ),
+          paddingLeft: horizontalScale(
+            insets?.includes("left") || insetHorizontal ? left : 0
+          ),
+          paddingRight: horizontalScale(
+            insets?.includes("right") || insetHorizontal ? right : 0
+          ),
         },
       ]}
       {...props}

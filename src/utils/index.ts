@@ -89,3 +89,26 @@ export const formatDate = (dateString: string) => {
 
   return date.toLocaleString("en-US", options);
 };
+
+// Simple HTML parser for basic tags
+export const parseHtmlToTextSegments = (html: string) => {
+  const segments: Array<{ text: string; bold?: boolean }> = [];
+
+  const regex = /<b>(.*?)<\/b>|<strong>(.*?)<\/strong>|([^<]+)/g;
+  let match;
+
+  while ((match = regex.exec(html)) !== null) {
+    if (match[1] !== undefined) {
+      // <b> tag content
+      segments.push({ text: match[1], bold: true });
+    } else if (match[2] !== undefined) {
+      // <strong> tag content
+      segments.push({ text: match[2], bold: true });
+    } else if (match[3] !== undefined) {
+      // Regular text
+      segments.push({ text: match[3] });
+    }
+  }
+
+  return segments;
+};

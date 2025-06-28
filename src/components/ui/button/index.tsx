@@ -92,25 +92,26 @@ const Button: React.FC<ButtonProps> = ({
     </Text>
   );
 
-  const renderButton = useCallback(() => {
-    return <View style={[getButtonStyles(), style]}>{renderContent()}</View>;
-  }, []);
-
   if (touchEffect) {
     return (
       <TouchableOpacity
         disabled={disabled}
         activeOpacity={0.7}
         onPress={onPress}
+        style={[getButtonStyles(), style]}
       >
-        {renderButton()}
+        {renderContent()}
       </TouchableOpacity>
     );
   }
 
   return (
-    <Pressable disabled={disabled} onPress={onPress}>
-      {renderButton()}
+    <Pressable
+      disabled={disabled}
+      onPress={onPress}
+      style={[getButtonStyles(), style]}
+    >
+      {renderContent()}
     </Pressable>
   );
 };

@@ -3,6 +3,7 @@ import TabsNavigator from "./tab-navigator";
 import { Settings } from "../screens/settings";
 import Transactions from "./screens/transactions";
 import TransactionDetails from "./screens/transaction-details";
+import Notifications from "./screens/notifications";
 
 export default createNativeStackNavigator({
   screenOptions: { headerShown: false },
@@ -11,5 +12,6 @@ export default createNativeStackNavigator({
     Settings,
     TransactionDetails,
     Transactions,
+    Notifications,
   },
 });

@@ -13,8 +13,10 @@ import { useTheme } from "@/hooks/useTheme";
 import GiftIcon from "@assets/svgs/gift.svg";
 import NotificationBellIcon from "@assets/svgs/notification-bell.svg";
 import { Add } from "iconsax-react-nativejs";
+import { useNavigation } from "@react-navigation/native";
 
 const DashboardHeader = () => {
+  const navigation = useNavigation();
   const avatarUrl = `https://api.dicebear.com/7.x/avataaars/svg?seed=${Math.random()}`;
   const { colors } = useTheme();
 
@@ -78,7 +80,14 @@ const DashboardHeader = () => {
           </Pressable>
         </View>
 
-        <Pressable style={styles.icon_container}>
+        <Pressable
+          onPress={() =>
+            navigation.navigate("MainStack", {
+              screen: "Notifications",
+            })
+          }
+          style={styles.icon_container}
+        >
           <NotificationBellIcon
             width={moderateScale(22.5)}
             height={moderateScale(22.5)}
