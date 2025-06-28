@@ -1,17 +1,36 @@
-import { View, ViewProps } from "react-native";
+import { ScrollView, View } from "react-native";
 import React from "react";
-import { EdgeInsets, useSafeAreaInsets } from "react-native-safe-area-context";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTheme } from "@/hooks/useTheme";
 import styles from "./screen-wrapper.styles";
 import { horizontalScale, verticalScale } from "@/utils/metrics";
+import { ScreenWrapperProps } from "./screen-wrapper.types";
 
-interface ScreenWrapperProps extends ViewProps {
-  insets?: keyof EdgeInsets;
-}
-
-const ScreenWrapper = ({ insets, ...props }: ScreenWrapperProps) => {
+const ScreenWrapper = ({
+  insets,
+  scrollable = true,
+  ...props
+}: ScreenWrapperProps) => {
   const { colors } = useTheme();
   const { top, bottom, left, right } = useSafeAreaInsets();
+
+  if (scrollable) {
+    return (
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={[
+          styles.container,
+          {
+            backgroundColor: colors.background,
+          },
+        ]}
+        {...props}
+      >
+        {props.children}
+      </ScrollView>
+    );
+  }
+
   return (
     <View
       style={[

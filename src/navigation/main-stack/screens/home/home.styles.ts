@@ -3,11 +3,12 @@ import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
   container: {
-    flex: 1,
+    rowGap: verticalScale(41),
+    paddingBottom: verticalScale(20),
   },
   header_container: {
     paddingHorizontal: horizontalScale(18),
-    paddingVertical: verticalScale(37),
+    paddingTop: verticalScale(37),
     rowGap: verticalScale(25),
   },
 });

@@ -3,7 +3,9 @@ export const commonColors = {
   black: "#000000",
   magenta: "#9F56D4",
   error500: "#F04438",
+  error600: "#D92D20",
   tabBarBg: "#F9F9F9F0",
+  success600: "#039855",
   // Dashboard wallet card colors
   darkBlue: "#000942",
 } as const;
@@ -15,6 +17,7 @@ const darkColors = {
   primary500: "",
   gray500: "",
   gray400: "",
+  gray300: "",
   secondary300: "",
   secondary500: "",
   tertiary400: "",
@@ -56,6 +59,7 @@ const lightColors = {
   primary500: "#000A4A",
   gray500: "#120542",
   gray400: "#4C525E",
+  gray300: "#70747E",
   secondary300: "#55D9FC",
   secondary500: "#00C6FB",
   tertiary400: "#AF72DB",

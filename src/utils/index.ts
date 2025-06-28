@@ -1,4 +1,5 @@
-import { Clipboard } from "react-native";
+import { Transaction } from "@/types/transactions.types";
+import * as Clipboard from "expo-clipboard";
 
 export const formatPhoneNumber = (text: string) => {
   // Remove all non-digit characters except +
@@ -50,10 +51,41 @@ export const formatPhoneNumber = (text: string) => {
 
 export const handleCopy = async (text: string): Promise<boolean> => {
   try {
-    await Clipboard.setString(text);
+    await Clipboard.setStringAsync(text);
     return true;
   } catch (error) {
     console.error("Failed to copy text to clipboard:", error);
     return false;
   }
+};
+
+export const getStatus = (status: Transaction["status"]) => {
+  switch (status) {
+    case "completed":
+      return "Successful";
+    case "pending":
+      return "Pending";
+    case "failed":
+      return "Failed";
+    default:
+      return "Failed";
+  }
+};
+
+export const formatAmount = (amount: number) => {
+  const sign = amount >= 0 ? "+" : "";
+  return `${sign}NGN ${Math.abs(amount).toFixed(2)}`;
+};
+
+export const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  const options: Intl.DateTimeFormatOptions = {
+    month: "long",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  };
+
+  return date.toLocaleString("en-US", options);
 };

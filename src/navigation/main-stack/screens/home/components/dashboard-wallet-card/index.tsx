@@ -38,7 +38,6 @@ const DashboardWalletCard = () => {
         styles.container,
         { overflow: "hidden", backgroundColor: colors.primary500 },
       ]}
-      //   resizeMode="cover"
     >
       <View style={styles.mainContent}>
         <Pressable
