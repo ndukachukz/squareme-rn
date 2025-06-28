@@ -46,6 +46,7 @@ export default createBottomTabNavigator({
     More: {
       screen: More,
       options: {
+        presentation: "modal",
         title: "More",
         tabBarIcon: (props) => (
           <MoreSquare

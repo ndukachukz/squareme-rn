@@ -9,6 +9,7 @@ import { useFonts } from "expo-font";
 import { FONT_LOADING_MAP } from "./constants/fonts";
 import { SplashScreen as AnimatedSplashScreen } from "./components/screens/splash-screen";
 import { PaperProvider } from "react-native-paper";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 Asset.loadAsync([...NavigationAssets]);
 
@@ -42,15 +43,17 @@ export function App() {
   }
 
   return (
-    <PaperProvider>
-      <Navigation
-        theme={theme}
-        linking={{
-          enabled: "auto",
-          prefixes: ["squareme://"],
-        }}
-        onReady={onLayoutRootView}
-      />
-    </PaperProvider>
+    <GestureHandlerRootView>
+      <PaperProvider>
+        <Navigation
+          theme={theme}
+          linking={{
+            enabled: "auto",
+            prefixes: ["squareme://"],
+          }}
+          onReady={onLayoutRootView}
+        />
+      </PaperProvider>
+    </GestureHandlerRootView>
   );
 }

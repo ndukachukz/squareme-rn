@@ -10,8 +10,10 @@ import { useAmountVisibilityStore } from "@/store";
 import { formatDate, formatAmount, getStatus } from "@/utils";
 import { styles } from "./dashboard-transactions.styles";
 import { mockTransactions } from "./dashboard-transactions.data";
+import { useNavigation } from "@react-navigation/native";
 
 const DashboardTransactions = () => {
+  const navigation = useNavigation();
   const { colors } = useTheme();
   const { isAmountVisible } = useAmountVisibilityStore();
   const [shouldShowMore, setShouldShowMore] = useState(false);
@@ -28,7 +30,11 @@ const DashboardTransactions = () => {
       <SectionHeader
         title="Transactions"
         actionText="View all"
-        onActionPress={() => {}}
+        onActionPress={() =>
+          navigation.navigate("MainStack", {
+            screen: "Transactions",
+          })
+        }
       />
 
       <View style={styles.content_container}>
