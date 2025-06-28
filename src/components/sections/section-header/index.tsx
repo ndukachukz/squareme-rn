@@ -12,11 +12,12 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
   onActionPress,
   titleFontSize = 15,
   actionFontSize = 12,
+  containerStyle,
 }) => {
   const { colors } = useTheme();
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, containerStyle]}>
       <Text
         fontWeight="500"
         fontSize={titleFontSize}

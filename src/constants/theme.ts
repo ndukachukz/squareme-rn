@@ -6,6 +6,8 @@ export const commonColors = {
   error600: "#D92D20",
   tabBarBg: "#F9F9F9F0",
   success600: "#039855",
+  lightGray: "#F9F9F9",
+  basic700: "#2E3A59",
   // Dashboard wallet card colors
   darkBlue: "#000942",
 } as const;

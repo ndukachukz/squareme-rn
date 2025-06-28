@@ -6,6 +6,7 @@ import DashboardHeader from "./components/dashboard-header";
 import DashboardWalletCard from "./components/dashboard-wallet-card";
 import DashboardQuickActions from "./components/dashboard-quick-actions";
 import DashboardTransactions from "./components/dashboard-transactions";
+import DashboardSuggestedActions from "./components/dashboard-suggested-actions";
 
 const Home = () => {
   return (
@@ -26,6 +27,8 @@ const Home = () => {
       <DashboardQuickActions />
 
       <DashboardTransactions />
+
+      <DashboardSuggestedActions />
     </ScreenWrapper>
   );
 };
