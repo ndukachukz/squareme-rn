@@ -10,6 +10,7 @@ export const commonColors = {
   basic700: "#2E3A59",
   secondary50: "#CCF4FE",
   secondary600: "#00A5D1",
+  gray100: "#B7BABF",
   // Dashboard wallet card colors
   darkBlue: "#000942",
 } as const;

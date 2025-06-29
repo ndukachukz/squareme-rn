@@ -19,8 +19,10 @@ import referralCardBg from "@assets/imgs/referral-code-card-bg.png";
 import handingGiftIllus from "@assets/imgs/handing-gift-illus.png";
 import Button from "@/components/ui/button";
 import { styles, getColorStyles } from "./payments.styles";
+import { useNavigation } from "@react-navigation/native";
 
 const Payments = () => {
+  const navigation = useNavigation();
   const { colors } = useTheme();
   const colorStyles = getColorStyles(colors);
 
@@ -36,8 +38,12 @@ const Payments = () => {
             title={"Send Money"}
             description={"Send money to anyone instantly"}
             onPress={() => {
-              // Handle item press here
-              console.log(`Pressed: Send Money`);
+              navigation.navigate("MainStack", {
+                screen: "PaymentInput",
+                params: {
+                  type: "send",
+                },
+              });
             }}
           />
           <Separator />
@@ -47,8 +53,12 @@ const Payments = () => {
             title={"Request Money"}
             description={"Request money from your friends and family"}
             onPress={() => {
-              // Handle item press here
-              console.log(`Pressed: Request Money`);
+              navigation.navigate("MainStack", {
+                screen: "PaymentInput",
+                params: {
+                  type: "request",
+                },
+              });
             }}
           />
         </View>

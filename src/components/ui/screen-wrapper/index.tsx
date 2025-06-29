@@ -1,4 +1,4 @@
-import { ScrollView, View } from "react-native";
+import { ScrollView, StatusBar, View } from "react-native";
 import React from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTheme } from "@/hooks/useTheme";
@@ -11,6 +11,7 @@ const ScreenWrapper = ({
   insetVertical,
   insetHorizontal,
   scrollable = true,
+  statusBarProps,
   ...props
 }: ScreenWrapperProps) => {
   const { colors } = useTheme();
@@ -28,6 +29,8 @@ const ScreenWrapper = ({
         ]}
         {...props}
       >
+        {statusBarProps && <StatusBar {...statusBarProps} />}
+
         {props.children}
       </ScrollView>
     );
@@ -55,6 +58,8 @@ const ScreenWrapper = ({
       ]}
       {...props}
     >
+      {statusBarProps && <StatusBar {...statusBarProps} />}
+
       {props.children}
     </View>
   );
