@@ -8,6 +8,7 @@ import { SectionHeaderProps } from "./section-header.types";
 
 const SectionHeader: React.FC<SectionHeaderProps> = ({
   title,
+  titleColor,
   actionText,
   onActionPress,
   titleFontSize = 15,
@@ -21,6 +22,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
       <Text
         fontWeight="500"
         fontSize={titleFontSize}
+        color={titleColor}
         lineHeight={convertLineHeightToPixels(100, titleFontSize)}
       >
         {title}

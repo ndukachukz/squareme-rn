@@ -14,8 +14,10 @@ import {
 } from "@/utils/metrics";
 import { handleCopy } from "@/utils";
 import Text from "@/components/ui/text";
+import { useNavigation } from "@react-navigation/native";
 
 const DashboardWalletCard = () => {
+  const navigation = useNavigation();
   const { colors } = useTheme();
   const { isAmountVisible, toggleAmountVisibility } =
     useAmountVisibilityStore();
@@ -38,6 +40,11 @@ const DashboardWalletCard = () => {
     >
       <View style={styles.mainContent}>
         <Pressable
+          onPress={() =>
+            navigation.navigate("MainStack", {
+              screen: "Transactions",
+            })
+          }
           style={[
             styles.transactionHistoryButton,
             { backgroundColor: colors.darkBlue },

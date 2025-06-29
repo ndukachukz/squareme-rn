@@ -18,6 +18,7 @@ const Button: React.FC<ButtonProps> = ({
   textFontWeight = "400",
   textFontStyle = "normal",
   textFontSize = 15,
+  textColor,
 }) => {
   const { colors } = useTheme();
 
@@ -84,7 +85,7 @@ const Button: React.FC<ButtonProps> = ({
       fontStyle={textFontStyle}
       fontSize={textFontSize}
       style={{
-        color: getTextColor(),
+        color: textColor ?? getTextColor(),
         textAlign: "center",
       }}
     >

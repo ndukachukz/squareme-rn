@@ -23,4 +23,5 @@ export interface ButtonProps {
   textFontWeight?: FontWeight;
   textFontStyle?: FontStyle;
   textFontSize?: number;
+  textColor?: string;
 }

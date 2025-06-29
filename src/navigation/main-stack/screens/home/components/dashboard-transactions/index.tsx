@@ -3,6 +3,7 @@ import React, { useMemo, useState } from "react";
 import { convertLineHeightToPixels, moderateScale } from "@/utils/metrics";
 import SectionHeader from "@/components/sections/section-header";
 import Text from "@/components/ui/text";
+import PillButton from "@/components/ui/pill-button/index";
 import ChevronDown from "@assets/svgs/chevron-down.svg";
 import { Moneys } from "iconsax-react-nativejs";
 import { useTheme } from "@/hooks/useTheme";
@@ -88,17 +89,14 @@ const DashboardTransactions = () => {
           </View>
         ))}
 
-        <Pressable onPress={toggleSeeMore} style={styles.see_more_btn}>
-          <Text
-            fontWeight="500"
-            fontSize={10}
-            lineHeight={convertLineHeightToPixels(150, 10)}
-            color={colors.tertiary500}
-          >
-            See more
-          </Text>
-          <ChevronDown width={moderateScale(10)} height={moderateScale(10)} />
-        </Pressable>
+        <PillButton
+          text="See more"
+          onPress={toggleSeeMore}
+          icon={
+            <ChevronDown width={moderateScale(10)} height={moderateScale(10)} />
+          }
+          style={styles.see_more_btn}
+        />
       </View>
     </View>
   );

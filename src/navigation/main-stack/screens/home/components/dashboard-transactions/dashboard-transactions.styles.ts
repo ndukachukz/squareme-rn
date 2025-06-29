@@ -68,17 +68,8 @@ export const styles = StyleSheet.create({
 
   see_more_btn: {
     marginBottom: verticalScale(-12),
-    flex: 1,
     position: "absolute",
     bottom: 0,
-    flexDirection: "row",
-    alignItems: "center",
-    borderWidth: 1,
-    borderColor: "#E4E9F2",
-    borderRadius: 12,
     alignSelf: "center",
-    paddingHorizontal: horizontalScale(8),
-    paddingVertical: verticalScale(4.5),
-    backgroundColor: "#FFF",
   },
 });
