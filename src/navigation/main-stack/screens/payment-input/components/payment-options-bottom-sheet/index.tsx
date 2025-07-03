@@ -1,4 +1,3 @@
-import { Pressable, StyleSheet } from "react-native";
 import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import SelectBottomSheet from "@/components/ui/select-bottom-sheet";
 import BottomSheet from "@gorhom/bottom-sheet";
@@ -10,7 +9,6 @@ import AtSign from "@assets/svgs/at-sign.svg";
 import Plus from "@assets/svgs/plus.svg";
 import { moderateScale } from "@/utils/metrics";
 import { commonColors } from "@/constants/theme";
-import { BlurView } from "expo-blur";
 
 const PaymentOptionsBottomSheet: React.FC<{
   isVisible: boolean;
@@ -20,12 +18,36 @@ const PaymentOptionsBottomSheet: React.FC<{
   const selectSheetRef = useRef<BottomSheet>(null);
 
   const handleSendAction = useCallback(
-    (type: "bank_account" | "beneficiary" | "tag" | "contact") => {},
+    (type: "bank_account" | "beneficiary" | "tag" | "contact") => {
+      switch (type) {
+        case "bank_account":
+          break;
+        case "beneficiary":
+          break;
+        case "tag":
+          break;
+        case "contact":
+          break;
+      }
+
+      selectSheetRef.current?.close();
+    },
     []
   );
 
   const handleRequestAction = useCallback(
-    (type: "beneficiary" | "tag" | "contact") => {},
+    (type: "beneficiary" | "tag" | "contact") => {
+      switch (type) {
+        case "beneficiary":
+          break;
+        case "tag":
+          break;
+        case "contact":
+          break;
+      }
+
+      selectSheetRef.current?.close();
+    },
     []
   );
 
@@ -100,21 +122,6 @@ const PaymentOptionsBottomSheet: React.FC<{
     [sendOptions, requestOptions]
   );
 
-  const renderBackdrop = useCallback(() => {
-    return (
-      <Pressable
-        style={[StyleSheet.absoluteFill]}
-        onPress={() => selectSheetRef.current?.close()}
-      >
-        <BlurView
-          intensity={0.5}
-          experimentalBlurMethod="dimezisBlurView"
-          style={{ flex: 1 }}
-        />
-      </Pressable>
-    );
-  }, []);
-
   useEffect(() => {
     if (isVisible) selectSheetRef.current?.expand();
   }, [isVisible]);
@@ -131,7 +138,6 @@ const PaymentOptionsBottomSheet: React.FC<{
       }
       options={options[type]}
       onClose={onClose}
-      backdropComponent={renderBackdrop}
     />
   );
 };
