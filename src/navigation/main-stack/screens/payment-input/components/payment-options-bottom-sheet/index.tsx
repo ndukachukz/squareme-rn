@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import SelectBottomSheet from "@/components/ui/select-bottom-sheet";
 import BottomSheet from "@gorhom/bottom-sheet";
-import { PaymentInputType } from "../../payment-input.types";
 import { SelectBottomSheetOption } from "@/components/ui/select-bottom-sheet/select-bottom-sheet.types";
 import Bank from "@assets/svgs/bank.svg";
 import UsersCheck from "@assets/svgs/users-check.svg";
@@ -9,46 +8,58 @@ import AtSign from "@assets/svgs/at-sign.svg";
 import Plus from "@assets/svgs/plus.svg";
 import { moderateScale } from "@/utils/metrics";
 import { commonColors } from "@/constants/theme";
+import {
+  PaymentOption,
+  PaymentOptionsBottomSheetProps,
+} from "./payment-options-bottom-sheet.types";
 
-const PaymentOptionsBottomSheet: React.FC<{
-  isVisible: boolean;
-  type: PaymentInputType;
-  onClose?: () => void;
-}> = ({ isVisible, onClose, type }) => {
+const PaymentOptionsBottomSheet: React.FC<PaymentOptionsBottomSheetProps> = ({
+  isVisible,
+  onClose,
+  type,
+  onSelect,
+}) => {
   const selectSheetRef = useRef<BottomSheet>(null);
 
   const handleSendAction = useCallback(
-    (type: "bank_account" | "beneficiary" | "tag" | "contact") => {
+    (type: PaymentOption) => {
       switch (type) {
         case "bank_account":
+          onSelect?.("bank_account");
           break;
         case "beneficiary":
+          onSelect?.("beneficiary");
           break;
         case "tag":
+          onSelect?.("tag");
           break;
         case "contact":
+          onSelect?.("contact");
           break;
       }
 
       selectSheetRef.current?.close();
     },
-    []
+    [onSelect]
   );
 
   const handleRequestAction = useCallback(
-    (type: "beneficiary" | "tag" | "contact") => {
+    (type: PaymentOption) => {
       switch (type) {
         case "beneficiary":
+          onSelect?.("beneficiary");
           break;
         case "tag":
+          onSelect?.("tag");
           break;
         case "contact":
+          onSelect?.("contact");
           break;
       }
 
       selectSheetRef.current?.close();
     },
-    []
+    [onSelect]
   );
 
   const sendOptions: SelectBottomSheetOption[] = useMemo(

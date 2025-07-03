@@ -83,8 +83,8 @@ const styles = StyleSheet.create({
   key: {
     width: horizontalScale(88),
     height: verticalScale(66),
-    paddingHorizontal: moderateScale(40),
-    paddingVertical: moderateScale(16),
+    // paddingHorizontal: moderateScale(40),
+    // paddingVertical: moderateScale(16),
     justifyContent: "center",
     alignItems: "center",
   },

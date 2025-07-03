@@ -14,14 +14,49 @@ import { ArrowDown2 } from "iconsax-react-nativejs";
 import PaymentOptionsBottomSheet from "./components/payment-options-bottom-sheet";
 import Button from "@/components/ui/button";
 import NumericKeyboard from "@/components/ui/numeric-keyboard";
+import { PaymentOption } from "./components/payment-options-bottom-sheet/payment-options-bottom-sheet.types";
+import { formatAmount } from "@/utils";
 
 const PaymentInput: React.FC<PaymentInputProps> = ({ route }) => {
   const { colors } = useTheme();
   const [paymentOptionsVisible, setPaymentOptionVisible] =
     useState<boolean>(false);
   const [amount, setAmount] = useState<string>("");
+  const [selectedPaymentOption, setSelectedPaymentOption] =
+    useState<PaymentOption | null>(null);
 
   const presentOptions = () => setPaymentOptionVisible(true);
+
+  const getPaymentOptionLabel = useCallback(
+    (option: PaymentOption, type: string) => {
+      if (type === "send") {
+        switch (option) {
+          case "bank_account":
+            return "Send to bank account";
+          case "beneficiary":
+            return "Send to a beneficiary";
+          case "tag":
+            return "Send using Squareme tag";
+          case "contact":
+            return "Send to contact list";
+          default:
+            return "";
+        }
+      } else {
+        switch (option) {
+          case "beneficiary":
+            return "Request from a beneficiary";
+          case "contact":
+            return "Request from contact list";
+          case "tag":
+            return "Request using Squareme tag";
+          default:
+            return "";
+        }
+      }
+    },
+    []
+  );
 
   const handleKeyPress = useCallback(
     (key: string) => {
@@ -50,7 +85,7 @@ const PaymentInput: React.FC<PaymentInputProps> = ({ route }) => {
     setAmount((prevAmount) => prevAmount.slice(0, -1));
   }, []);
 
-  const formatAmount = useCallback((value: string) => {
+  const handleFormatAmount = useCallback((value: string) => {
     if (!value) return "0";
 
     // If the value is just "0." keep it as is
@@ -60,12 +95,29 @@ const PaymentInput: React.FC<PaymentInputProps> = ({ route }) => {
     if (value.endsWith(".") && value.length > 1) {
       const beforeDecimal = value.slice(0, -1);
       const cleanedBeforeDecimal = beforeDecimal.replace(/^0+(?=\d)/, "");
-      return (cleanedBeforeDecimal || "0") + ".";
+      const formattedBeforeDecimal = (cleanedBeforeDecimal || "0").replace(
+        /\B(?=(\d{3})+(?!\d))/g,
+        ","
+      );
+      return formattedBeforeDecimal + ".";
     }
 
     // Remove leading zeros except when followed by decimal point
     const cleaned = value.replace(/^0+(?=\d)/, "");
-    return cleaned || "0";
+    const finalValue = cleaned || "0";
+
+    // Split into integer and decimal parts
+    const parts = finalValue.split(".");
+    const integerPart = parts[0];
+    const decimalPart = parts[1];
+
+    // Add thousands separators to integer part
+    const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+    // Return with decimal part if it exists
+    return decimalPart !== undefined
+      ? `${formattedInteger}.${decimalPart}`
+      : formattedInteger;
   }, []);
 
   const getNumericAmount = useCallback(() => {
@@ -99,9 +151,14 @@ const PaymentInput: React.FC<PaymentInputProps> = ({ route }) => {
           </View>
           <Pressable onPress={presentOptions} style={styles.select_trigger}>
             <Text color={colors.white}>
-              {route.params.type === "request"
-                ? "Who do you want to request from?"
-                : "Where do you want to send money?"}
+              {!selectedPaymentOption
+                ? route.params.type === "request"
+                  ? "Who do you want to request from?"
+                  : "Where do you want to send money?"
+                : getPaymentOptionLabel(
+                    selectedPaymentOption,
+                    route.params.type
+                  )}
             </Text>
             <ArrowDown2 size={moderateScale(20)} color={colors.gray100} />
           </Pressable>
@@ -113,7 +170,7 @@ const PaymentInput: React.FC<PaymentInputProps> = ({ route }) => {
             ₦
           </Text>
           <Text fontSize={68} color={colors.white} style={styles.amount}>
-            {formatAmount(amount)}
+            {handleFormatAmount(amount)}
           </Text>
         </View>
 
@@ -131,6 +188,7 @@ const PaymentInput: React.FC<PaymentInputProps> = ({ route }) => {
         isVisible={paymentOptionsVisible}
         type={route.params.type}
         onClose={() => setPaymentOptionVisible(false)}
+        onSelect={setSelectedPaymentOption}
       />
     </React.Fragment>
   );

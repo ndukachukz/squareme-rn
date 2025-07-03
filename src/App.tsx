@@ -10,6 +10,7 @@ import { FONT_LOADING_MAP } from "./constants/fonts";
 import { SplashScreen as AnimatedSplashScreen } from "./components/screens/splash-screen";
 import { PaperProvider } from "react-native-paper";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import "./config/env";
 
 Asset.loadAsync([...NavigationAssets]);
 
