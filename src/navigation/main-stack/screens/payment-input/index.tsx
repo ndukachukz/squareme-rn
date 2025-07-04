@@ -1,4 +1,4 @@
-import { Pressable, StatusBar, StyleSheet, View } from "react-native";
+import { Pressable, View } from "react-native";
 import React, { useCallback, useState } from "react";
 import ScreenWrapper from "@/components/ui/screen-wrapper";
 import { PaymentInputProps } from "./payment-input.types";
@@ -10,26 +10,35 @@ import {
 } from "@/utils/metrics";
 import Text from "@/components/ui/text";
 import { useTheme } from "@/hooks/useTheme";
-import { ArrowDown2 } from "iconsax-react-nativejs";
+import { ArrowDown2, Clock } from "iconsax-react-nativejs";
 import PaymentOptionsBottomSheet from "./components/payment-options-bottom-sheet";
 import Button from "@/components/ui/button";
 import NumericKeyboard from "@/components/ui/numeric-keyboard";
-import { PaymentOption } from "./components/payment-options-bottom-sheet/payment-options-bottom-sheet.types";
-import { formatAmount } from "@/utils";
+import styles from "./payment-input.styles";
+import { useNavigation } from "@react-navigation/native";
+import { PaymentAction, TransactionType } from "@/types/transactions.types";
+import { usePaymentStore } from "@/store/payment-store";
 
 const PaymentInput: React.FC<PaymentInputProps> = ({ route }) => {
+  const paymentAction = route.params.paymentAction;
+
+  const {
+    setSelectedTransactionType,
+    selectedTransactionType,
+    ...paymentStore
+  } = usePaymentStore();
+
+  const navigation = useNavigation();
   const { colors } = useTheme();
   const [paymentOptionsVisible, setPaymentOptionVisible] =
     useState<boolean>(false);
   const [amount, setAmount] = useState<string>("");
-  const [selectedPaymentOption, setSelectedPaymentOption] =
-    useState<PaymentOption | null>(null);
 
   const presentOptions = () => setPaymentOptionVisible(true);
 
   const getPaymentOptionLabel = useCallback(
-    (option: PaymentOption, type: string) => {
-      if (type === "send") {
+    (option: TransactionType, paymentAction: PaymentAction) => {
+      if (paymentAction === "send") {
         switch (option) {
           case "bank_account":
             return "Send to bank account";
@@ -124,6 +133,32 @@ const PaymentInput: React.FC<PaymentInputProps> = ({ route }) => {
     return parseFloat(amount) || 0;
   }, [amount]);
 
+  const handleHistoryPress = useCallback(() => {
+    navigation.navigate("MainStack", {
+      screen: "Transactions",
+    });
+  }, []);
+
+  const handleProceed = useCallback(() => {
+    paymentStore.setAmount(parseFloat(amount));
+    paymentStore.setPaymentAction(paymentAction);
+
+    navigation.navigate("MainStack", {
+      screen:
+        selectedTransactionType === "tag"
+          ? "TagTransaction"
+          : selectedTransactionType === "contact"
+          ? "ContactTransaction"
+          : selectedTransactionType === "beneficiary"
+          ? "SelectBeneficiary"
+          : "BankAccountTransaction",
+      params: {
+        paymentAction,
+        amount: parseFloat(amount),
+      },
+    });
+  }, [amount, selectedTransactionType, paymentAction]);
+
   return (
     <React.Fragment>
       <ScreenWrapper
@@ -133,32 +168,43 @@ const PaymentInput: React.FC<PaymentInputProps> = ({ route }) => {
         contentContainerStyle={styles.container}
       >
         <View style={{ rowGap: verticalScale(24) }}>
-          <View style={styles.wallet_info}>
-            <Text
-              fontSize={15}
-              lineHeight={convertLineHeightToPixels(150, 15)}
-              color={colors.gray100}
-            >
-              Wallet Balance
-            </Text>
-            <Text
-              color={colors.white}
-              fontSize={20}
-              lineHeight={convertLineHeightToPixels(140, 20)}
-            >
-              ₦5,200
-            </Text>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              paddingHorizontal: horizontalScale(15),
+            }}
+          >
+            <View style={{ width: 32 }} />
+            <View style={styles.wallet_info}>
+              <Text
+                fontSize={15}
+                lineHeight={convertLineHeightToPixels(150, 15)}
+                color={colors.gray100}
+              >
+                Wallet Balance
+              </Text>
+              <Text
+                color={colors.white}
+                fontSize={20}
+                lineHeight={convertLineHeightToPixels(140, 20)}
+              >
+                ₦5,200
+              </Text>
+            </View>
+            <Pressable onPress={handleHistoryPress}>
+              <Clock size={moderateScale(24)} color={colors.white} />
+            </Pressable>
           </View>
+
           <Pressable onPress={presentOptions} style={styles.select_trigger}>
             <Text color={colors.white}>
-              {!selectedPaymentOption
-                ? route.params.type === "request"
+              {!selectedTransactionType
+                ? paymentAction === "request"
                   ? "Who do you want to request from?"
                   : "Where do you want to send money?"
-                : getPaymentOptionLabel(
-                    selectedPaymentOption,
-                    route.params.type
-                  )}
+                : getPaymentOptionLabel(selectedTransactionType, paymentAction)}
             </Text>
             <ArrowDown2 size={moderateScale(20)} color={colors.gray100} />
           </Pressable>
@@ -179,57 +225,19 @@ const PaymentInput: React.FC<PaymentInputProps> = ({ route }) => {
         <Button
           title="Proceed"
           disabled={getNumericAmount() === 0}
-          onPress={() => {}}
+          onPress={handleProceed}
           style={{ marginTop: verticalScale(24) }}
         />
       </ScreenWrapper>
 
       <PaymentOptionsBottomSheet
         isVisible={paymentOptionsVisible}
-        type={route.params.type}
+        paymentAction={route.params.paymentAction}
         onClose={() => setPaymentOptionVisible(false)}
-        onSelect={setSelectedPaymentOption}
+        onSelect={setSelectedTransactionType}
       />
     </React.Fragment>
   );
 };
 
 export default PaymentInput;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "space-between",
-    backgroundColor: "#0C0C26",
-    paddingTop: verticalScale(13),
-    paddingBottom: verticalScale(32),
-    paddingHorizontal: horizontalScale(18),
-    rowGap: verticalScale(24),
-  },
-  wallet_info: {
-    paddingHorizontal: horizontalScale(24),
-    paddingVertical: verticalScale(12),
-    alignSelf: "center",
-    alignItems: "center",
-    rowGap: verticalScale(4),
-    borderRadius: 12,
-    backgroundColor: "#9F56D41A",
-  },
-  select_trigger: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingHorizontal: horizontalScale(16),
-    paddingVertical: verticalScale(12),
-    backgroundColor: "#38225A",
-    alignItems: "center",
-    borderRadius: 6,
-  },
-  amount_container: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: verticalScale(20),
-  },
-  currency: {},
-  amount: {},
-});

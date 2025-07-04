@@ -8,21 +8,19 @@ import AtSign from "@assets/svgs/at-sign.svg";
 import Plus from "@assets/svgs/plus.svg";
 import { moderateScale } from "@/utils/metrics";
 import { commonColors } from "@/constants/theme";
-import {
-  PaymentOption,
-  PaymentOptionsBottomSheetProps,
-} from "./payment-options-bottom-sheet.types";
+import { PaymentOptionsBottomSheetProps } from "./payment-options-bottom-sheet.types";
+import { TransactionType } from "@/types/transactions.types";
 
 const PaymentOptionsBottomSheet: React.FC<PaymentOptionsBottomSheetProps> = ({
   isVisible,
   onClose,
-  type,
+  paymentAction: type,
   onSelect,
 }) => {
   const selectSheetRef = useRef<BottomSheet>(null);
 
   const handleSendAction = useCallback(
-    (type: PaymentOption) => {
+    (type: TransactionType) => {
       switch (type) {
         case "bank_account":
           onSelect?.("bank_account");
@@ -44,7 +42,7 @@ const PaymentOptionsBottomSheet: React.FC<PaymentOptionsBottomSheetProps> = ({
   );
 
   const handleRequestAction = useCallback(
-    (type: PaymentOption) => {
+    (type: TransactionType) => {
       switch (type) {
         case "beneficiary":
           onSelect?.("beneficiary");

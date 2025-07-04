@@ -20,11 +20,25 @@ import handingGiftIllus from "@assets/imgs/handing-gift-illus.png";
 import Button from "@/components/ui/button";
 import { styles, getColorStyles } from "./payments.styles";
 import { useNavigation } from "@react-navigation/native";
+import { PaymentAction } from "@/types/transactions.types";
+import { usePaymentStore } from "@/store/payment-store";
 
 const Payments = () => {
   const navigation = useNavigation();
   const { colors } = useTheme();
   const colorStyles = getColorStyles(colors);
+  const { setPaymentAction } = usePaymentStore();
+
+  const handlePaymentAction = (action: PaymentAction) => {
+    setPaymentAction(action);
+
+    navigation.navigate("MainStack", {
+      screen: "PaymentInput",
+      params: {
+        paymentAction: action,
+      },
+    });
+  };
 
   return (
     <ScreenWrapper contentContainerStyle={styles.container}>
@@ -37,14 +51,7 @@ const Payments = () => {
             iconContainerBgColor={"#F1F5FD"}
             title={"Send Money"}
             description={"Send money to anyone instantly"}
-            onPress={() => {
-              navigation.navigate("MainStack", {
-                screen: "PaymentInput",
-                params: {
-                  type: "send",
-                },
-              });
-            }}
+            onPress={() => handlePaymentAction("send")}
           />
           <Separator />
           <MenuListItem
@@ -52,14 +59,7 @@ const Payments = () => {
             iconContainerBgColor={"#F2FAEB"}
             title={"Request Money"}
             description={"Request money from your friends and family"}
-            onPress={() => {
-              navigation.navigate("MainStack", {
-                screen: "PaymentInput",
-                params: {
-                  type: "request",
-                },
-              });
-            }}
+            onPress={() => handlePaymentAction("request")}
           />
         </View>
 

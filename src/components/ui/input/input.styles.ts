@@ -8,7 +8,7 @@ export default StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: theme.colors.inputFieldBackground,
-    height: verticalScale(54),
+    minHeight: verticalScale(54),
     borderRadius: 8,
     paddingHorizontal: horizontalScale(16),
     gap: horizontalScale(21),

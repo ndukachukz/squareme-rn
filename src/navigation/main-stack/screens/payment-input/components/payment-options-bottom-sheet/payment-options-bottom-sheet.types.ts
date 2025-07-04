@@ -1,10 +1,8 @@
-import { PaymentInputType } from "../../payment-input.types";
-
-export type PaymentOption = "bank_account" | "beneficiary" | "tag" | "contact";
+import { PaymentAction, TransactionType } from "@/types/transactions.types";
 
 export interface PaymentOptionsBottomSheetProps {
   isVisible: boolean;
-  type: PaymentInputType;
+  paymentAction: PaymentAction;
   onClose?: () => void;
-  onSelect?: (option: PaymentOption) => void;
+  onSelect?: (option: TransactionType) => void;
 }

@@ -1,5 +1,5 @@
 import { ScrollView, StatusBar, View } from "react-native";
-import React from "react";
+import React, { useCallback } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTheme } from "@/hooks/useTheme";
 import styles from "./screen-wrapper.styles";
@@ -12,10 +12,45 @@ const ScreenWrapper = ({
   insetHorizontal,
   scrollable = true,
   statusBarProps,
+  style,
   ...props
 }: ScreenWrapperProps) => {
   const { colors } = useTheme();
   const { top, bottom, left, right } = useSafeAreaInsets();
+
+  // Extract padding values from style prop if provided
+  const checkForPadding = useCallback(() => {
+    if (!style) return { top: false, bottom: false, left: false, right: false };
+
+    const styleArray = Array.isArray(style) ? style : [style];
+    const flattenedStyle = styleArray.reduce((acc, curr) => {
+      if (curr && typeof curr === "object") {
+        return { ...acc, ...curr };
+      }
+      return acc;
+    }, {} as any);
+
+    return {
+      top:
+        flattenedStyle?.paddingTop !== undefined ||
+        flattenedStyle?.paddingVertical !== undefined ||
+        flattenedStyle?.padding !== undefined,
+      bottom:
+        flattenedStyle?.paddingBottom !== undefined ||
+        flattenedStyle?.paddingVertical !== undefined ||
+        flattenedStyle?.padding !== undefined,
+      left:
+        flattenedStyle?.paddingLeft !== undefined ||
+        flattenedStyle?.paddingHorizontal !== undefined ||
+        flattenedStyle?.padding !== undefined,
+      right:
+        flattenedStyle?.paddingRight !== undefined ||
+        flattenedStyle?.paddingHorizontal !== undefined ||
+        flattenedStyle?.padding !== undefined,
+    };
+  }, [style]);
+
+  const hasPadding = checkForPadding();
 
   if (scrollable) {
     return (
@@ -26,6 +61,7 @@ const ScreenWrapper = ({
           {
             backgroundColor: colors.background,
           },
+          style,
         ]}
         {...props}
       >
@@ -42,19 +78,26 @@ const ScreenWrapper = ({
         styles.container,
         {
           backgroundColor: colors.background,
-          paddingTop: verticalScale(
-            insets?.includes("top") || insetVertical ? top : 0
-          ),
-          paddingBottom: verticalScale(
-            insets?.includes("bottom") || insetVertical ? bottom : 0
-          ),
-          paddingLeft: horizontalScale(
-            insets?.includes("left") || insetHorizontal ? left : 0
-          ),
-          paddingRight: horizontalScale(
-            insets?.includes("right") || insetHorizontal ? right : 0
-          ),
+          paddingTop: !hasPadding.top
+            ? verticalScale(insets?.includes("top") || insetVertical ? top : 0)
+            : undefined,
+          paddingBottom: !hasPadding.bottom
+            ? verticalScale(
+                insets?.includes("bottom") || insetVertical ? bottom : 0
+              )
+            : undefined,
+          paddingLeft: !hasPadding.left
+            ? horizontalScale(
+                insets?.includes("left") || insetHorizontal ? left : 0
+              )
+            : undefined,
+          paddingRight: !hasPadding.right
+            ? horizontalScale(
+                insets?.includes("right") || insetHorizontal ? right : 0
+              )
+            : undefined,
         },
+        style,
       ]}
       {...props}
     >
