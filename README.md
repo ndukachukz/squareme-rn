@@ -69,6 +69,44 @@ We highly recommend using the development builds for normal development and test
 
 The `ios` and `android` folder are gitignored in the project by default as they are automatically generated during the build process ([Continuous Native Generation](https://docs.expo.dev/workflow/continuous-native-generation/)). This means that you should not edit these folders directly and use [config plugins](https://docs.expo.dev/config-plugins/) instead. However, if you need to edit these folders, you can remove them from the `.gitignore` file so that they are tracked by git.
 
+## Architecture Choices
+
+This project follows a component-based architecture using React Native with Expo and React Navigation. Key architectural decisions include:
+
+- **Navigation Structure**: Utilizes React Navigation's Native Stack Navigator with nested Bottom Tab Navigator for intuitive user flow
+- **TypeScript Integration**: Full TypeScript support for type safety and better developer experience
+- **Component Organization**: Modular component structure for maintainability and reusability
+- **Cross-Platform Support**: Built with React Native for Web compatibility, enabling deployment across iOS, Android, and web platforms
+- **Theme System**: Implements system-aware theming that adapts to device appearance preferences
+
+## State Management Strategy
+
+The current implementation uses a combination of modern state management patterns:
+
+- **Zustand**: Lightweight state management library for global application state with a simple, unopinionated API
+- **MMKV**: High-performance key-value storage for persisting application state and user preferences
+- **Local State**: Component-level state using React hooks (`useState`, `useEffect`) for component-specific data
+- **Navigation State**: Managed by React Navigation for routing and screen transitions
+
+## Trade-offs and Known Limitations
+
+- **No API Integration**: The application currently operates with mock data instead of real API endpoints, limiting dynamic data functionality
+- **FlatList Usage**: Using React Native's standard `FlatList` component instead of more performant alternatives like Shopify's FlashList
+- **Limited Network Layer**: No established patterns for API calls, error handling, or data caching
+
+## Areas for Improvement with More Time
+
+Given additional development time, the following enhancements would significantly improve the application:
+
+- **MockAPI.io Integration**: Complete integration with MockAPI.io for realistic data fetching and CRUD operations
+- **Shopify FlashList**: Replace FlatList with FlashList for optimized performance, especially with large datasets
+- **Enhanced Keyboard Handling**: Implement `react-native-keyboard-controller` for better keyboard management and user experience
+- **Transaction Screens**: Complete development of transaction-related screens and functionality
+- **Advanced Theming System**: Implement a comprehensive theming solution with custom theme creation, and dynamic theme switching capabilities
+- **Error Boundaries**: Add comprehensive error handling and recovery mechanisms
+- **Performance Optimization**: Implement code splitting, lazy loading, and other performance best practices
+- **Testing Suite**: Add unit tests, integration tests, and E2E testing with Jest and Detox or Maestro
+
 ## Resources
 
 - [React Navigation documentation](https://reactnavigation.org/)
